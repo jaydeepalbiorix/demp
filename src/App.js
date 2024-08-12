@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const handleShare = () => {
+    // Use the current page URL
+    const currentUrl = window.location.href;
+
+    // Ensure the URL is valid and properly encoded
+    const shareUrl = encodeURIComponent(currentUrl);
+
+    // Custom message for the share
+    const shareText = encodeURIComponent("Check out this amazing content!");
+
+    // Construct the Facebook share URL
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
+
+    // Open the Facebook share dialog
+    window.open(facebookShareUrl, '_blank', 'width=600,height=400');
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+         <button onClick={handleShare}>Share on Facebook</button>
+
     </div>
   );
 }
