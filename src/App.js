@@ -1,26 +1,38 @@
-import './App.css';
+import "./App.css";
 
 function App() {
-  const handleShare = () => {
-    // Use the current page URL
-    const currentUrl = window.location.href;
+  const currentUrl = encodeURIComponent(window.location.href);
+  const shareText = encodeURIComponent("Check out this amazing content!");
 
-    // Ensure the URL is valid and properly encoded
-    const shareUrl = encodeURIComponent(currentUrl);
+  // Facebook Share URL
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}&quote=${shareText}`;
 
-    // Custom message for the share
-    const shareText = encodeURIComponent("Check out this amazing content!");
+  // Twitter Share URL
+  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${currentUrl}&text=${shareText}`;
 
-    // Construct the Facebook share URL
-    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
+  // Email Share URL
+  const emailSubject = encodeURIComponent("Interesting Content to Check Out");
+  const emailBody = encodeURIComponent(
+    `I found this interesting and wanted to share it with you: ${window.location.href}`
+  );
+  const emailShareUrl = `mailto:?subject=${emailSubject}&body=${emailBody}`;
 
-    // Open the Facebook share dialog
-    window.open(facebookShareUrl, '_blank', 'width=600,height=400');
+  const openShareWindow = (url) => {
+    window.open(url, "_blank", "width=600,height=400");
   };
   return (
     <div className="App">
-         <button onClick={handleShare}>Share on Facebook</button>
-
+      <div>
+        <button onClick={() => openShareWindow(facebookShareUrl)}>
+          Share on Facebook
+        </button>
+        <button onClick={() => openShareWindow(twitterShareUrl)}>
+          Share on Twitter
+        </button>
+        <a href={emailShareUrl} target="_blank" rel="noopener noreferrer">
+          Share via Email
+        </a>
+      </div>
     </div>
   );
 }
